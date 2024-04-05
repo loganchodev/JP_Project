@@ -1,20 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     let startX, moving = false;
-    let currentIndex = 0; // 현재 보여지는 박스의 인덱스
+    let currentIndex = 0; 
     const container = document.querySelector('.them_img_container');
-    const boxes = container.querySelectorAll('div'); // 모든 이미지 박스 선택
+    const boxes = container.querySelectorAll('div'); 
     const totalSlides = boxes.length;
-    const slideWidth = 140 + 10; // 박스 너비 + 오른쪽 마진
-    let containerWidth = (totalSlides * slideWidth) - 10; // 마지막 박스 마진 제외
+    const slideWidth = 120; 
+    let containerWidth = (totalSlides * slideWidth) - 10; 
     container.style.width = `${containerWidth}px`;
-
+    
     function updateSlidePosition() {
-        let newPosX = -(currentIndex * slideWidth);
-        boxes.forEach((box, index) => {
-            box.style.transform = `translateX(${newPosX}px)`;
-            newPosX += slideWidth;
-        });
+        // currentIndex에 따라 컨테이너를 이동
+        const moveX = -(currentIndex * (slideWidth + 10)); // 박스 너비 + 오른쪽 마진 고려
+        container.style.transform = `translateX(${moveX}px)`;
     }
+    
 
     const touchStartHandler = function(e) {
         startX = e.touches[0].clientX;
