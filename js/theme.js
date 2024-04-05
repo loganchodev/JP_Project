@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let startX, moving = false, currentIndex = 0;
     const container = document.querySelector('.them_img_container');
-    const maxIndex = container.children.length - 1; // 마지막 인덱스 계산
+    // 각 이미지 박스의 너비를 가져올 필요가 있습니다. 
+    // 이 예제에서는 모든 박스가 동일한 너비를 가진다고 가정합니다.
+    const slideWidth = container.querySelector('.them_img_box1').offsetWidth;
+    const maxIndex = container.children.length - 1; 
+
+    container.style.transition = 'transform 0.5s ease'; // 부드러운 이동을 위한 트랜지션 설정
 
     const touchStartHandler = function(e) {
         if (!moving) {
@@ -26,11 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (moveX < -50) {
                 currentIndex = currentIndex < maxIndex ? currentIndex + 1 : maxIndex;
                 updateSlidePosition();
-                moving = false; // 스와이프 후 이동 중지
+                moving = false; 
             } else if (moveX > 50) {
                 currentIndex = currentIndex > 0 ? currentIndex - 1 : 0;
                 updateSlidePosition();
-                moving = false; // 스와이프 후 이동 중지
+                moving = false; 
             }
         }
     };
@@ -40,7 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function updateSlidePosition() {
-        container.style.transform = `translateX(-${100 * currentIndex}%)`; // 현재 인덱스에 따라 위치 조정
+        // 현재 인덱스에 따라 컨테이너의 위치 조정
+        const moveX = -(currentIndex * slideWidth);
+        container.style.transform = `translateX(${moveX}px)`;
     }
 
     function enableSwipe() {
@@ -55,6 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         container.removeEventListener('touchend', touchEndHandler);
     }
 
-    checkMediaQuery(); // 초기 로드 시 실행
-    window.addEventListener('resize', checkMediaQuery); // 창 크기 변경 시 실행
+    checkMediaQuery(); 
+    window.addEventListener('resize', checkMediaQuery); 
 });
