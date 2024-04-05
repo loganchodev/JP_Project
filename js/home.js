@@ -122,45 +122,57 @@ function slide(direction) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.matchMedia("(max-width: 600px)").matches) {
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.home_slide_container > div');
-    const totalSlides = slides.length;
+  let intervalId = null; // 인터벌 ID를 저장할 변수
 
-    function setSlidePosition() {
-      for (let i = 0; i < totalSlides; i++) {
-        slides[i].style.transform = `translateX(${(i - currentIndex) * 100}%)`;
+  function setSlidePosition(currentIndex, slides) {
+    const totalSlides = slides.length;
+    for (let i = 0; i < totalSlides; i++) {
+      slides[i].style.transform = `translateX(${(i - currentIndex) * 100}%)`;
+    }
+  }
+
+  function updateProgress(progressValue) {
+    document.getElementById("progress").value = progressValue;
+  }
+
+  function increaseNumber(numElement) {
+    let num = parseInt(numElement.textContent);
+    num = num >= 5 ? 1 : num + 1;
+    numElement.textContent = num.toString().padStart(2, "0");
+  }
+
+  function startSlideShow() {
+    const slides = document.querySelectorAll('.home_slide_container > div');
+    if (slides.length === 0) return; // 슬라이드가 없으면 중단
+    let currentIndex = 0;
+    let progressValue = 1; 
+    const numElement = document.querySelector(".info_num");
+
+    setSlidePosition(currentIndex, slides);
+    updateProgress(progressValue);
+
+    intervalId = setInterval(function() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      setSlidePosition(currentIndex, slides);
+      progressValue = progressValue >= 5 ? 1 : progressValue + 1;
+      updateProgress(progressValue);
+      increaseNumber(numElement);
+    }, 3000); // 3초마다 실행
+  }
+
+  function checkScreenSize() {
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      if (intervalId === null) {
+        startSlideShow();
+      }
+    } else {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null;
       }
     }
-
-    function changeSlide() {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      setSlidePosition();
-    }
-
-    let progressValue = 1; // 초기값 1로 설정
-
-    function updateProgress() {
-      document.getElementById("progress").value = progressValue;
-      progressValue = progressValue >= 5 ? 1 : progressValue + 1;
-    }
-
-    let numElement = document.querySelector(".info_num");
-    let num = parseInt(numElement.textContent);
-
-    function increaseNumber() {
-      num = num >= 5 ? 1 : num + 1;
-      numElement.textContent = num.toString().padStart(2, "0");
-    }
-
-    setInterval(function() {
-      changeSlide();
-      updateProgress();
-      increaseNumber();
-    }, 3000); // 5초마다 실행
-
-    setSlidePosition();
-    updateProgress();
   }
-});
 
+  checkScreenSize(); // 초기 로드 시 실행
+  window.addEventListener('resize', checkScreenSize); // 창 크기 변경 시 실행
+});
