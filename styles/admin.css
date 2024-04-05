@@ -1,0 +1,75 @@
+body {
+    font-family: 'MaplestoryBold', sans-serif;
+    background-color: #e9ecef; 
+    color: #212529; 
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#wrap {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+form {
+    margin-top: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #495057; 
+    font-size: 16px; 
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px; 
+    margin-bottom: 25px; 
+    border-radius: 8px; 
+    border: 2px solid #ced4da;
+    box-sizing: border-box;
+    transition: border-color 0.25s; 
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus {
+    border-color: #80bdff; 
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); 
+}
+
+button {
+    display: inline-block;
+    background-color: #2ac1bc;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; 
+}
+
+button[type="reset"]{
+    margin-left: 10px;
+}
+
+button:hover {
+    background-color:#2ac1bc;
+    opacity: 0.85;
+    transform: scale(1.05); 
+}
+
+@media (max-width: 600px) {
+    #wrap {
+        width: 95%;
+        padding: 20px;
+    }
+}

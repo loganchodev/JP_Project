@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>여행플래너</title>
+    <link rel="icon" href="./img/JP.png" />
+    <link rel="stylesheet" href="./styles/Header.css" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/themStyles/them.css" />
+    <style>
+      @font-face {
+        font-family: "MaplestoryBold";
+        src: url("./font/Maplestory\ Bold.ttf") format("truetype");
+      }
+
+      body {
+        font-family: "MaplestoryBold", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav">
+        <div class="logo-group">
+          <div class="logo">
+            <a href="./index.html">
+              <img src="./img/로고02.png" alt="로고" />
+              <span class="project-name">너 J발 P야?</span></a
+            >
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="button" data-section="home">홈</button>
+          <button class="button" data-section="them">테마</button>
+          <button class="button" data-section="planer">여행플래너</button>
+          <button class="button" data-section="trip_info">여행정보</button>
+          <button class="button" data-section="community">커뮤니티</button>
+        </div>
+        <div class="auth-buttons">
+          <button class="button" onclick="location.href='loginMember.html'">
+            로그인
+          </button>
+          <button class="button" onclick="location.href='regMember.html'">
+            회원가입
+          </button>
+        </div>
+      </div>
+    </header>
+    <section>
+      <div class="them_main">
+        <div class="them_title">
+          <h1>Welcom</h1>
+          <p>박현우님! 안녕하세요</p>
+        </div>
+        <div class="them_subtitle">
+          <h2>
+            <span class="them_subtitle_span1">P</span>를 위한
+            <span class="them_subtitle_span2">여행플래너</span>에 <br />오신
+            것을 환영합니다.
+          </h2>
+        </div>
+        <button class="them_button">START</button>
+      </div>
+    </section>
+  </body>
+</html>
