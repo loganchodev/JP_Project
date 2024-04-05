@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
     const container = document.querySelector('.them_img_container');
     const totalSlides = container.children.length;
-    const slideWidth = 120; // 각 박스의 너비
+    const slideWidth = 140; // 각 박스의 너비
     let containerWidth = totalSlides * slideWidth;
     container.style.width = `${containerWidth}px`; // 컨테이너의 너비 설정
 

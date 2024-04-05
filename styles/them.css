@@ -195,14 +195,16 @@
 .them_subtitle{
   display: block;
 }
+
 .them_img_container{
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: space-around;
   overflow: hidden;
   margin-left: 40px;
-  width: 800px;
+  width: 1000px;
   height: 250px;
+  background-color: yellow;
 }
 
 .them_img_box1,
@@ -210,10 +212,10 @@
 .them_img_box3,
 .them_img_box4,
 .them_img_box5{
+  display: block;
   overflow: hidden;
-  margin-left: 10px;
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   background-color: red;
   border-radius: 10px;
   transition: transform 0.5s ease;
