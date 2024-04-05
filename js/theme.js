@@ -1,41 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let startX, moveX = 0;
-    let isDragging = false;
+    function checkMediaQuery() {
+        if (window.matchMedia("(max-width: 600px)").matches) {
+            enableSwipe();
+        } else {
+            disableSwipe();
+        }
+    }
+
+    let startX, moving = false, currentIndex = 0;
     const container = document.querySelector('.them_img_container');
-    const totalSlides = container.children.length;
-    const slideWidth = 140; // 각 박스의 너비 수정
-    let containerWidth = totalSlides * slideWidth;
-    container.style.width = `${containerWidth}px`; // 컨테이너의 너비 설정
+    const slideWidth = 140;
+    const maxIndex = container.children.length - 1; 
 
-    container.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        moveX = 0; // 이동 거리 초기화
-    });
+    container.style.transition = 'transform 0.5s ease'; // 부드러운 이동을 위한 트랜지션 설정
 
-    container.addEventListener('touchmove', function(e) {
-        if (isDragging) {
-            const currentX = e.touches[0].clientX;
-            moveX = currentX - startX;
-            e.preventDefault(); // 페이지 스크롤 방지
+    const touchStartHandler = function(e) {
+        if (!moving) {
+            startX = e.touches[0].clientX;
+            moving = true;
         }
-    });
+    };
 
-    container.addEventListener('touchend', function(e) {
-        if (isDragging) {
-            if (moveX > 50) {
-                moveSlide(currentIndex - 1); // 왼쪽으로 스와이프
-            } else if (moveX < -50) {
-                moveSlide(currentIndex + 1); // 오른쪽으로 스와이프
+    const touchMoveHandler = function(e) {
+        if (moving) {
+            const touchX = e.touches[0].clientX;
+            const moveX = touchX - startX;
+
+            if (moveX < -50) {
+                currentIndex = currentIndex < maxIndex ? currentIndex + 1 : maxIndex;
+                updateSlidePosition();
+                moving = false; 
+            } else if (moveX > 50) {
+                currentIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+                updateSlidePosition();
+                moving = false; 
             }
-            isDragging = false;
         }
-    });
+    };
 
-    function moveSlide(newIndex) {
-        // newIndex가 범위를 벗어나지 않도록 조정
-        currentIndex = newIndex < 0 ? 0 : newIndex >= totalSlides ? totalSlides - 1 : newIndex;
+    const touchEndHandler = function() {
+        moving = false;
+    };
+
+    function updateSlidePosition() {
         const moveX = -(currentIndex * slideWidth);
         container.style.transform = `translateX(${moveX}px)`;
     }
+
+    function enableSwipe() {
+        container.addEventListener('touchstart', touchStartHandler);
+        container.addEventListener('touchmove', touchMoveHandler);
+        container.addEventListener('touchend', touchEndHandler);
+    }
+
+    function disableSwipe() {
+        container.removeEventListener('touchstart', touchStartHandler);
+        container.removeEventListener('touchmove', touchMoveHandler);
+        container.removeEventListener('touchend', touchEndHandler);
+    }
+
+    checkMediaQuery(); 
+    window.addEventListener('resize', checkMediaQuery); 
 });
