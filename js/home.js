@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var progressValue = 10; // 초기값 설정
-  var targetValue = 10; // 목표값 설정
+  var progressValue = 5; // 초기값 설정
+  var targetValue = 5; // 목표값 설정
   var animationInterval;
 
   // 왼쪽 화살표를 클릭할 때
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // 목표값 감소 (최소값 0)
       if (targetValue > 0) {
-        targetValue -= 10; // 10% 감소
+        targetValue -= 5; // 10% 감소
         startAnimation();
       }
     });
@@ -123,7 +123,6 @@ function slide(direction) {
 
 document.addEventListener('DOMContentLoaded', function() {
   if (window.matchMedia("(max-width: 600px)").matches) {
-
     let currentIndex = 0;
     const slides = document.querySelectorAll('.home_slide_container > div');
     const totalSlides = slides.length;
@@ -139,67 +138,29 @@ document.addEventListener('DOMContentLoaded', function() {
       setSlidePosition();
     }
 
-    var progressValue = 5; 
-    var targetValue = 5; 
-    var animationInterval;
+    let progressValue = 1; // 초기값 1로 설정
 
-    function updateProgress(value) {
-      if (value >= 100) {
-        value = 5; 
-        progressValue = 5;
-        targetValue = 5;
-      }
-      document.getElementById("progress").value = value;
-    }
-
-    function startAnimation() {
-      clearInterval(animationInterval);
-      animationInterval = setInterval(function () {
-        if (progressValue < targetValue) {
-          progressValue += 1;
-        } else if (progressValue > targetValue) {
-          progressValue -= 1;
-        } else {
-          clearInterval(animationInterval);
-        }
-        updateProgress(progressValue);
-      }, 10);
+    function updateProgress() {
+      document.getElementById("progress").value = progressValue;
+      progressValue = progressValue >= 5 ? 1 : progressValue + 1;
     }
 
     let numElement = document.querySelector(".info_num");
     let num = parseInt(numElement.textContent);
 
     function increaseNumber() {
-      num++;
-      if (num > 10) num = 1;
-      updateNumber();
-    }
-
-    function updateNumber() {
+      num = num >= 5 ? 1 : num + 1;
       numElement.textContent = num.toString().padStart(2, "0");
     }
 
- 
     setInterval(function() {
-      changeSlide(); 
-      if (targetValue < 100) {
-        targetValue += 5; 
-      } else {
-        progressValue = 5; 
-        targetValue = 5; 
-      }
-      startAnimation();
-      increaseNumber(); 
-    }, 5000);
+      changeSlide();
+      updateProgress();
+      increaseNumber();
+    }, 3000); // 5초마다 실행
 
     setSlidePosition();
-    updateProgress(progressValue);
-    updateNumber();
+    updateProgress();
   }
 });
-
-
-
-
-
 
