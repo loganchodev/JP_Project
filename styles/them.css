@@ -202,9 +202,10 @@
   align-items: center;
   overflow: hidden;
   margin-left: 40px;
-  width: 1000px;
+  width: 100%;
   height: 250px;
   background-color: yellow;
+  transition: transform 0.5s ease;
 }
 
 .them_img_box1,
@@ -213,7 +214,6 @@
 .them_img_box4,
 .them_img_box5{
   display: block;
-  overflow: hidden;
   width: 120px;
   height: 120px;
   background-color: red;
