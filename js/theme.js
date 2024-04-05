@@ -1,48 +1,56 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let startX, moving = false;
-    let currentIndex = 0; // 현재 보여지는 첫 번째 박스의 인덱스
+    let startX, currentX, moving = false;
+    let currentIndex = 0;
     const container = document.querySelector('.them_img_container');
-    const boxes = container.children; // 모든 박스를 선택합니다.
-    const totalBoxes = boxes.length;
-    const slideWidth = 120; // 각 박스의 너비
-    const gap = 10; // 박스 사이의 간격
-    const visibleWidth = 600; // .content 요소의 너비와 같게 설정
-    let containerWidth = totalBoxes * (slideWidth + gap) - gap; // 컨테이너의 총 너비 계산
-
-    // 컨테이너 너비 설정
+    const totalBoxes = container.children.length;
+    const slideWidth = 120;
+    const gap = 10;
+    let containerWidth = totalBoxes * (slideWidth + gap) - gap;
     container.style.width = `${containerWidth}px`;
+    container.style.transition = 'transform 0.5s ease-out'; // 부드러운 이동을 위한 트랜지션 설정 조정
 
-    // 슬라이드 위치 업데이트 함수
-    function updateSlidePosition() {
-        const newPosX = -(currentIndex * (slideWidth + gap));
-        container.style.transform = `translateX(${newPosX}px)`;
+    function updateSlidePosition(final = false) {
+        if (!final) {
+            let moveX = startX - currentX;
+            let newPos = -(currentIndex * (slideWidth + gap)) - moveX;
+            container.style.transition = 'none'; // 실시간 드래그/스와이프 시 트랜지션 비활성화
+            container.style.transform = `translateX(${newPos}px)`;
+        } else {
+            const newPosX = -(currentIndex * (slideWidth + gap));
+            container.style.transition = 'transform 0.5s ease-out'; // 최종 위치 이동 시 트랜지션 활성화
+            container.style.transform = `translateX(${newPosX}px)`;
+        }
     }
 
-    // 터치 시작 이벤트 핸들러
-    container.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
+    const startHandler = function(e) {
+        startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
         moving = true;
-    });
+        container.style.transition = 'none'; // 드래그/스와이프 시작 시 트랜지션 비활성화
+    };
 
-    // 터치 이동 이벤트 핸들러
-    container.addEventListener('touchmove', function(e) {
+    const moveHandler = function(e) {
         if (!moving) return;
-        const touchX = e.touches[0].clientX;
-        const moveX = startX - touchX;
+        currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        updateSlidePosition(); // 실시간으로 위치 업데이트
+    };
 
-        if (moveX > 50) { // 오른쪽으로 스와이프
-            if (currentIndex < totalBoxes - 1) currentIndex += 1;
-            updateSlidePosition();
-            moving = false;
-        } else if (moveX < -50) { // 왼쪽으로 스와이프
-            if (currentIndex > 0) currentIndex -= 1;
-            updateSlidePosition();
-            moving = false;
+    const endHandler = function() {
+        if (!moving) return;
+        let moveX = startX - currentX;
+        if (moveX > 50 && currentIndex < totalBoxes - 1) { // 오른쪽으로 스와이프/드래그
+            currentIndex += 1;
+        } else if (moveX < -50 && currentIndex > 0) { // 왼쪽으로 스와이프/드래그
+            currentIndex -= 1;
         }
-    });
-
-    // 터치 종료 이벤트 핸들러
-    container.addEventListener('touchend', function() {
+        updateSlidePosition(true); // 최종 위치로 부드럽게 이동
         moving = false;
-    });
+    };
+
+    // 터치 및 마우스 이벤트 리스너 등록
+    container.addEventListener('touchstart', startHandler);
+    container.addEventListener('mousedown', startHandler);
+    container.addEventListener('touchmove', moveHandler);
+    container.addEventListener('mousemove', moveHandler);
+    document.addEventListener('touchend', endHandler);
+    document.addEventListener('mouseup', endHandler);
 });
