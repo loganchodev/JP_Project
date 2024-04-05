@@ -197,6 +197,7 @@
 }
 .them_img_container{
   display: flex;
+  overflow-x: hidden;
   justify-content: space-around;
   align-items: center;
   overflow: hidden;
