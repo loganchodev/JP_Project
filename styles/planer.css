@@ -105,6 +105,7 @@
   height: 250px;
   background-image: url(../img/stars.jpg);
   background-repeat: no-repeat;
+  opacity: 0.7;
 }
 
 .tripplanner_text_box{

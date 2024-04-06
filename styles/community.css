@@ -1,5 +1,12 @@
 /* 커뮤니티 디자인 */
+@media screen and (min-width: 601px) {
 
+  .content_info{
+    width: 100vw;
+    height: 250px;
+  }
+  
+  }
 .text-content {
   text-align: center;
   margin-bottom: 20px;
@@ -76,6 +83,7 @@
   width: 86%;
   height: 62%;
   top: 12%;
+}
 }
 
 @media screen and (max-width: 600px) {
