@@ -128,6 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalSlides = slides.length;
     for (let i = 0; i < totalSlides; i++) {
       slides[i].style.transform = `translateX(${(i - currentIndex) * 100}%)`;
+      // 텍스트에 애니메이션 클래스 추가
+      const textElement = slides[i].querySelector('.home_slide' + (i+1) + '_text');
+      if (textElement) {
+        textElement.classList.remove('slide-text-animation'); // 먼저 애니메이션 클래스를 제거합니다.
+        // 브라우저가 동기적으로 클래스 변경을 처리하므로, 애니메이션을 재시작하기 위해 비동기적으로 클래스를 추가합니다.
+        setTimeout(() => textElement.classList.add('slide-text-animation'), 10);
+      }
     }
   }
 

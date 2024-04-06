@@ -77,3 +77,12 @@
   height: 62%;
   top: 12%;
 }
+
+@media screen and (max-width: 600px) {
+
+  .content_footer{
+    width: 100vw;
+    height: 250px;
+  }
+  
+}

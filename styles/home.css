@@ -539,4 +539,21 @@ body{
   border-radius: 10px;
   background: #2ac1bc;
 }
+
+.slide-text-animation {
+  animation: slideInFromLeft 1s forwards;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-1000px); 
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0); 
+    opacity: 1;
+  }
+}
+
+
 }
