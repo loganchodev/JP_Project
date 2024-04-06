@@ -179,6 +179,7 @@
 @media screen and (max-width: 600px) {
 
 .content{
+  overflow-x: hidden;
   width: 100vw;
   height: 250px;
 }
