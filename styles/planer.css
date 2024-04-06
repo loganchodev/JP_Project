@@ -96,6 +96,7 @@
 @media screen and (max-width: 600px){
 
 .content_planner{
+  overflow: hidden;
   width: 100vw;
   height: 100px;
 }
@@ -115,7 +116,7 @@
 
 .tripplanner_title{
   color: white;
-  font-size: 36px;
+  font-size: 30px;
 }
 
 .tripplanner_text_box>.subtitle{
@@ -123,7 +124,7 @@
   top: -10px;
   padding-left: 80px;
   color: #2ac1bc;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .description{
@@ -149,7 +150,7 @@
   justify-content: center;
   overflow-x: hidden;
   position: relative;
-  top: -65px;
+  top: -50px;
   left: 250px;
   width: 120px;
   height: 40px;
