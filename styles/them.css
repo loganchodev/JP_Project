@@ -205,7 +205,7 @@
 .them_subtitle{
   position: relative;
   top: 30px;
-  padding-left: 50px;
+  padding-left: 30px;
   color: #2ac1bc;
   font-size: 20px;
   font-family: "Maplestory Light";
@@ -219,7 +219,7 @@
   overflow-x: auto; 
   overflow-y: hidden; 
   white-space: nowrap;
-  margin-left: 40px;
+  margin-left: 30px;
   width: 100vw;
   height: 224px; 
 }
