@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
   let progress = document.getElementById("progress"); // 프로그레스 바 엘리먼트
   let numElement = document.querySelector(".info_num"); // 숫자 표시 엘리먼트
